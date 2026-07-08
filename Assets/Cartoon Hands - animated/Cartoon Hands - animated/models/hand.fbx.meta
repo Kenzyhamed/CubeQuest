@@ -1,145 +1,1025 @@
 fileFormatVersion: 2
 guid: 8d5287646988dd040a86edeebbec55c8
-timeCreated: 1483897120
-licenseType: Store
+AssetOrigin:
+  serializedVersion: 1
+  productId: 69004
+  packageName: Cartoon Hands - animated
+  packageVersion: 2.0
+  assetPath: Assets/Cartoon Hands - animated/Cartoon Hands - animated/models/hand.fbx
+  uploadId: 619447
 ModelImporter:
-  serializedVersion: 19
-  fileIDToRecycleName:
-    100000: Armature_hand
-    100002: //RootNode
-    100004: hand
-    100006: index_finger_0
-    100008: index_finger_1
-    100010: index_finger_2
-    100012: index_finger_3
-    100014: index_finger_3_end
-    100016: middle_finger_0
-    100018: middle_finger_1
-    100020: middle_finger_2
-    100022: middle_finger_3
-    100024: middle_finger_3_end
-    100026: palm
-    100028: pinky_0
-    100030: pinky_1
-    100032: pinky_2
-    100034: pinky_3
-    100036: pinky_3_end
-    100038: ring_finger_0
-    100040: ring_finger_1
-    100042: ring_finger_2
-    100044: ring_finger_3
-    100046: ring_finger_3_end
-    100048: thumb_0
-    100050: thumb_1
-    100052: thumb_2
-    100054: thumb_2_end
-    100056: wrist
-    100058: cuff
-    400000: Armature_hand
-    400002: //RootNode
-    400004: hand
-    400006: index_finger_0
-    400008: index_finger_1
-    400010: index_finger_2
-    400012: index_finger_3
-    400014: index_finger_3_end
-    400016: middle_finger_0
-    400018: middle_finger_1
-    400020: middle_finger_2
-    400022: middle_finger_3
-    400024: middle_finger_3_end
-    400026: palm
-    400028: pinky_0
-    400030: pinky_1
-    400032: pinky_2
-    400034: pinky_3
-    400036: pinky_3_end
-    400038: ring_finger_0
-    400040: ring_finger_1
-    400042: ring_finger_2
-    400044: ring_finger_3
-    400046: ring_finger_3_end
-    400048: thumb_0
-    400050: thumb_1
-    400052: thumb_2
-    400054: thumb_2_end
-    400056: wrist
-    400058: cuff
-    4300000: hand
-    4300002: cuff
-    7400000: Armature_hand|bjj
-    7400002: Armature_hand|cool
-    7400004: Armature_hand|count
-    7400006: Armature_hand|dino
-    7400008: Armature_hand|faq
-    7400010: Armature_hand|fig
-    7400012: Armature_hand|fist
-    7400014: Armature_hand|hold_big_apple
-    7400016: Armature_hand|hold_little_apple
-    7400018: Armature_hand|hold_stick
-    7400020: Armature_hand|hold_sword
-    7400022: Armature_hand|idle
-    7400024: Armature_hand|idle_natural
-    7400026: Armature_hand|index
-    7400028: Armature_hand|no
-    7400030: Armature_hand|ok
-    7400032: Armature_hand|palm
-    7400034: Armature_hand|paper
-    7400036: Armature_hand|pinch
-    7400038: Armature_hand|pistol
-    7400040: Armature_hand|push
-    7400042: Armature_hand|thumb_up
-    7400044: Armature_hand|two
-    9500000: //RootNode
-    13700000: hand
-    13700002: cuff
+  serializedVersion: 24200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Armature_hand
+  - first:
+      1: 100002
+    second: //RootNode
+  - first:
+      1: 100004
+    second: hand
+  - first:
+      1: 100006
+    second: index_finger_0
+  - first:
+      1: 100008
+    second: index_finger_1
+  - first:
+      1: 100010
+    second: index_finger_2
+  - first:
+      1: 100012
+    second: index_finger_3
+  - first:
+      1: 100014
+    second: index_finger_3_end
+  - first:
+      1: 100016
+    second: middle_finger_0
+  - first:
+      1: 100018
+    second: middle_finger_1
+  - first:
+      1: 100020
+    second: middle_finger_2
+  - first:
+      1: 100022
+    second: middle_finger_3
+  - first:
+      1: 100024
+    second: middle_finger_3_end
+  - first:
+      1: 100026
+    second: palm
+  - first:
+      1: 100028
+    second: pinky_0
+  - first:
+      1: 100030
+    second: pinky_1
+  - first:
+      1: 100032
+    second: pinky_2
+  - first:
+      1: 100034
+    second: pinky_3
+  - first:
+      1: 100036
+    second: pinky_3_end
+  - first:
+      1: 100038
+    second: ring_finger_0
+  - first:
+      1: 100040
+    second: ring_finger_1
+  - first:
+      1: 100042
+    second: ring_finger_2
+  - first:
+      1: 100044
+    second: ring_finger_3
+  - first:
+      1: 100046
+    second: ring_finger_3_end
+  - first:
+      1: 100048
+    second: thumb_0
+  - first:
+      1: 100050
+    second: thumb_1
+  - first:
+      1: 100052
+    second: thumb_2
+  - first:
+      1: 100054
+    second: thumb_2_end
+  - first:
+      1: 100056
+    second: wrist
+  - first:
+      1: 100058
+    second: cuff
+  - first:
+      4: 400000
+    second: Armature_hand
+  - first:
+      4: 400002
+    second: //RootNode
+  - first:
+      4: 400004
+    second: hand
+  - first:
+      4: 400006
+    second: index_finger_0
+  - first:
+      4: 400008
+    second: index_finger_1
+  - first:
+      4: 400010
+    second: index_finger_2
+  - first:
+      4: 400012
+    second: index_finger_3
+  - first:
+      4: 400014
+    second: index_finger_3_end
+  - first:
+      4: 400016
+    second: middle_finger_0
+  - first:
+      4: 400018
+    second: middle_finger_1
+  - first:
+      4: 400020
+    second: middle_finger_2
+  - first:
+      4: 400022
+    second: middle_finger_3
+  - first:
+      4: 400024
+    second: middle_finger_3_end
+  - first:
+      4: 400026
+    second: palm
+  - first:
+      4: 400028
+    second: pinky_0
+  - first:
+      4: 400030
+    second: pinky_1
+  - first:
+      4: 400032
+    second: pinky_2
+  - first:
+      4: 400034
+    second: pinky_3
+  - first:
+      4: 400036
+    second: pinky_3_end
+  - first:
+      4: 400038
+    second: ring_finger_0
+  - first:
+      4: 400040
+    second: ring_finger_1
+  - first:
+      4: 400042
+    second: ring_finger_2
+  - first:
+      4: 400044
+    second: ring_finger_3
+  - first:
+      4: 400046
+    second: ring_finger_3_end
+  - first:
+      4: 400048
+    second: thumb_0
+  - first:
+      4: 400050
+    second: thumb_1
+  - first:
+      4: 400052
+    second: thumb_2
+  - first:
+      4: 400054
+    second: thumb_2_end
+  - first:
+      4: 400056
+    second: wrist
+  - first:
+      4: 400058
+    second: cuff
+  - first:
+      43: 4300000
+    second: hand
+  - first:
+      43: 4300002
+    second: cuff
+  - first:
+      74: 7400000
+    second: Armature_hand|bjj
+  - first:
+      74: 7400002
+    second: Armature_hand|cool
+  - first:
+      74: 7400004
+    second: Armature_hand|count
+  - first:
+      74: 7400006
+    second: Armature_hand|dino
+  - first:
+      74: 7400008
+    second: Armature_hand|faq
+  - first:
+      74: 7400010
+    second: Armature_hand|fig
+  - first:
+      74: 7400012
+    second: Armature_hand|fist
+  - first:
+      74: 7400014
+    second: Armature_hand|hold_big_apple
+  - first:
+      74: 7400016
+    second: Armature_hand|hold_little_apple
+  - first:
+      74: 7400018
+    second: Armature_hand|hold_stick
+  - first:
+      74: 7400020
+    second: Armature_hand|hold_sword
+  - first:
+      74: 7400022
+    second: Armature_hand|idle
+  - first:
+      74: 7400024
+    second: Armature_hand|idle_natural
+  - first:
+      74: 7400026
+    second: Armature_hand|index
+  - first:
+      74: 7400028
+    second: Armature_hand|no
+  - first:
+      74: 7400030
+    second: Armature_hand|ok
+  - first:
+      74: 7400032
+    second: Armature_hand|palm
+  - first:
+      74: 7400034
+    second: Armature_hand|paper
+  - first:
+      74: 7400036
+    second: Armature_hand|pinch
+  - first:
+      74: 7400038
+    second: Armature_hand|pistol
+  - first:
+      74: 7400040
+    second: Armature_hand|push
+  - first:
+      74: 7400042
+    second: Armature_hand|thumb_up
+  - first:
+      74: 7400044
+    second: Armature_hand|two
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: hand
+  - first:
+      137: 13700002
+    second: cuff
+  externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature_hand|bjj
+      takeName: Armature_hand|bjj
+      internalID: 7400000
+      firstFrame: 0
+      lastFrame: 22
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|cool
+      takeName: Armature_hand|cool
+      internalID: 7400002
+      firstFrame: 0
+      lastFrame: 22
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|count
+      takeName: Armature_hand|count
+      internalID: 7400004
+      firstFrame: 0
+      lastFrame: 130
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|dino
+      takeName: Armature_hand|dino
+      internalID: 7400006
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|faq
+      takeName: Armature_hand|faq
+      internalID: 7400008
+      firstFrame: 0
+      lastFrame: 28
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|fig
+      takeName: Armature_hand|fig
+      internalID: 7400010
+      firstFrame: 0
+      lastFrame: 25
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|fist
+      takeName: Armature_hand|fist
+      internalID: 7400012
+      firstFrame: 0
+      lastFrame: 34
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|hold_big_apple
+      takeName: Armature_hand|hold_big_apple
+      internalID: 7400014
+      firstFrame: 0
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|hold_little_apple
+      takeName: Armature_hand|hold_little_apple
+      internalID: 7400016
+      firstFrame: 0
+      lastFrame: 45
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|hold_stick
+      takeName: Armature_hand|hold_stick
+      internalID: 7400018
+      firstFrame: 0
+      lastFrame: 43
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|hold_sword
+      takeName: Armature_hand|hold_sword
+      internalID: 7400020
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|idle
+      takeName: Armature_hand|idle
+      internalID: 7400022
+      firstFrame: 0
+      lastFrame: 86
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|idle_natural
+      takeName: Armature_hand|idle_natural
+      internalID: 7400024
+      firstFrame: 0
+      lastFrame: 86
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|index
+      takeName: Armature_hand|index
+      internalID: 7400026
+      firstFrame: 0
+      lastFrame: 34
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|no
+      takeName: Armature_hand|no
+      internalID: 7400028
+      firstFrame: 0
+      lastFrame: 36
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|ok
+      takeName: Armature_hand|ok
+      internalID: 7400030
+      firstFrame: 0
+      lastFrame: 43
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|palm
+      takeName: Armature_hand|palm
+      internalID: 7400032
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|paper
+      takeName: Armature_hand|paper
+      internalID: 7400034
+      firstFrame: 0
+      lastFrame: 43
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|pinch
+      takeName: Armature_hand|pinch
+      internalID: 7400036
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|pistol
+      takeName: Armature_hand|pistol
+      internalID: 7400038
+      firstFrame: 0
+      lastFrame: 32
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|push
+      takeName: Armature_hand|push
+      internalID: 7400040
+      firstFrame: 0
+      lastFrame: 28
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|thumb_up
+      takeName: Armature_hand|thumb_up
+      internalID: 7400042
+      firstFrame: 0
+      lastFrame: 22
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_hand|two
+      takeName: Armature_hand|two
+      internalID: 7400044
+      firstFrame: 0
+      lastFrame: 22
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    meshOptimizationFlags: -1
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -149,22 +1029,20 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 69004
-  packageName: Cartoon Hands - animated
-  packageVersion: 2.0
-  assetPath: Assets/Cartoon Hands - animated/Cartoon Hands - animated/models/hand.fbx
-  uploadId: 619447

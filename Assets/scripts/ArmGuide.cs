@@ -6,41 +6,62 @@ public class ArmGuideCubeToItsSlot : MonoBehaviour
     public Transform armRoot;
     public Transform fingerTip;
     public Animator handAnimator;
-
+    public GameManager gameManager;
+    public string CurrentCondition => gameManager.currentcondition;
     bool _showing = false;
-    string _condition = "A";
     Vector3 _targetPosition;
 
-    void Start() => gameObject.SetActive(false);
+    void Start() => SetVisibility(false);
 
-    public void SetCondition(string condition)
+    public void Show(Vector3 targetPosition, bool isAtColorOrShape)
     {
-        _condition = condition;
-    }
-
-    public void Show(Vector3 targetPosition)
-    {
-        if (_condition == "A") return;
-
         _targetPosition = targetPosition;
 
         if (!_showing)
         {
-            Vector3 desired = new Vector3(_targetPosition.x, _targetPosition.y - 0.15f, _targetPosition.z - 0.2f);
-            Vector3 delta = desired - fingerTip.position;
-            armRoot.position = armRoot.position + delta;
+            Vector3 desired = new Vector3(_targetPosition.x, _targetPosition.y - 0.1f, _targetPosition.z - 0.15f);
+            transform.position = desired;
         }
 
-        gameObject.SetActive(true);
-        if (handAnimator != null)
-            handAnimator.SetBool("isPointing", true);
+        if (CurrentCondition == "B1")
+        {
+            if (handAnimator != null)
+                handAnimator.SetBool("isPointing", true);
+        }
+
+        if (CurrentCondition == "B2")
+        {
+            bool useRelease = Vector3.Distance(_targetPosition, gameManager.slot.position) < 0.05f;
+
+            if (handAnimator != null)
+            {
+                handAnimator.SetBool("isGrab",     !useRelease && !isAtColorOrShape);
+                handAnimator.SetBool("isRelease",   useRelease && !isAtColorOrShape);
+                handAnimator.SetBool("isKeepHold", !useRelease && isAtColorOrShape);
+                handAnimator.SetBool("isPointing", false);
+            }
+        }
+
         _showing = true;
+        SetVisibility(true);
     }
+
     public void Hide()
     {
         _showing = false;
         if (handAnimator != null)
+        {
             handAnimator.SetBool("isPointing", false);
-        gameObject.SetActive(false);
+            handAnimator.SetBool("isGrab",     false);
+            handAnimator.SetBool("isRelease",  false);
+            handAnimator.SetBool("isKeepHold", false);
+        }
+        SetVisibility(false);
+    }
+
+    void SetVisibility(bool visible)
+    {
+        foreach (Renderer r in GetComponentsInChildren<Renderer>())
+            r.enabled = visible;
     }
 }

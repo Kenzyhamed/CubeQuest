@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 using System;
-
+/*
 public class Logger : MonoBehaviour
 {
     public static Logger Instance;
@@ -71,4 +71,4 @@ public class Logger : MonoBehaviour
     string Timestamp() => Time.time.ToString("F3");
 
     void OnApplicationQuit() => SaveLog();
-}
+}*/

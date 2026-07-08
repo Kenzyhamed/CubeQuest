@@ -4,13 +4,15 @@ using Oculus.Interaction;
 public class SnapToPoint : MonoBehaviour
 {
     public Transform[] snapPoints;
-    public float snapDistance = 0.2f;
+    public float snapDistance = 0.5f;
 
     [Header("Return to slot settings")]
     public Transform assignedSlot;
 
     [Header("References")]
     public GameManager gameManager;
+    public SoundStateMachine stateMachine;
+    private string condition;
 
     public Grabbable _grabbable;
     public bool isBeingControlled = false;
@@ -31,6 +33,7 @@ public class SnapToPoint : MonoBehaviour
 
     void Update()
     {
+        condition=gameManager.currentcondition;
         if (isBeingControlled) return;
 
         bool isGrabbed = _grabbable != null &&
@@ -38,9 +41,8 @@ public class SnapToPoint : MonoBehaviour
                         _grabbable.GrabPoints.Count > 0;
 
         if (isGrabbed && !_wasGrabbed)
-        {
             _wasGrabbed = true;
-        }
+
         if (!isGrabbed) _wasGrabbed = false;
 
         if (isGrabbed)
@@ -78,8 +80,7 @@ public class SnapToPoint : MonoBehaviour
             return;
         }
 
-        if (snapPoints == null || snapPoints.Length == 0)
-            return;
+        if (snapPoints == null || snapPoints.Length == 0) return;
 
         Transform closestSnapPoint = null;
         float closestDistance = Mathf.Infinity;
@@ -113,21 +114,34 @@ public class SnapToPoint : MonoBehaviour
     void RunCheck()
     {
         _checkPending = false;
-        LetterBox lb = GetComponent<LetterBox>();
+        LetterBox lb = GetComponentInChildren<LetterBox>();
         if (lb == null) return;
 
-        bool correct = gameManager.IsCorrectLetter(lb.letter);
+        bool correct = gameManager.IsCorrectLetter(lb.letter, lb.meshName, lb.colorName, out bool cMatch, out bool mMatch, out bool lMatch);
 
         if (correct)
         {
             TrialManager.Instance?.EndTrial(success: true);
-            gameManager.OnCorrect();
+
+            //if (condition == "A")
+            //{
+            if (stateMachine != null) stateMachine.OnCorrectPlaced();
+            //}
             SendHome();
+            gameManager.OnCorrect();
             _snappedToSlot = false;
         }
         else
         {
-            gameManager.OnWrong();
+            if (condition == "A" && stateMachine != null)
+            {
+                if (!lMatch)
+                    stateMachine.OnWrongPlaced();
+                else if (!cMatch)
+                    stateMachine.OnWrongColorHit();
+                else if (!mMatch)
+                    stateMachine.OnWrongShapeHit();
+            }
             SendHome();
             _snappedToSlot = false;
         }

@@ -6,23 +6,32 @@ public class TrialManager : MonoBehaviour
 {
     public static TrialManager Instance;
 
+    // ── References ────────────────────────────────────────────────────────
     [Header("References")]
     public GameManager gameManager;
     public GameObject colorslot;
     public ArmGuideCubeToItsSlot armGuide;
+    public SoundStateMachine stateMachine;
 
+    // ── Arm Guide Targets ─────────────────────────────────────────────────
+    [Header("Disks")]
+    public Transform redDisk;
+    public Transform blueDisk;
+    public Transform greenDisk;
+
+    [Header("Shapes")]
+    public Transform sphereShape;
+    public Transform cylinderShape;
+
+    // ── Blocks ────────────────────────────────────────────────────────────
     [Header("Letter Blocks")]
     public SnapToPoint[] allBlocks;
 
-    [Header("Breakdown Threshold")]
-    public float hesitationThreshold = 3f;
-
-    private Dictionary<string, AudioClip> _findSounds = new Dictionary<string, AudioClip>();
-    private AudioClip _placeInSlotSound;
+    // ── State Tracking ────────────────────────────────────────────────────
+    bool _wasColorCorrect = false;
+    bool _wasShapeCorrect = false;
     private string _condition = "A";
-
     private float _timer = 0f;
-
     private bool _trialActive = false;
     private bool _wasGrabbed = false;
     private bool _pulsing = false;
@@ -30,48 +39,76 @@ public class TrialManager : MonoBehaviour
     private string _targetLetter = "";
     private SnapToPoint _currentTargetBlock;
 
-    void Awake() => Instance = this;
-
-    public void SetSounds(string condition, AudioClip placeSlot, AudioClip E, AudioClip F, AudioClip L, AudioClip K, AudioClip M, AudioClip N, AudioClip R, AudioClip P)
+    void Awake()
     {
-        _placeInSlotSound = placeSlot;
-        _condition = condition;
-        hesitationThreshold = condition == "B2" ? 5f : 3f;
-
-        if (armGuide != null) armGuide.SetCondition(condition);
-
-        _findSounds["E"] = E;
-        _findSounds["F"] = F;
-        _findSounds["L"] = L;
-        _findSounds["K"] = K;
-        _findSounds["M"] = M;
-        _findSounds["N"] = N;
-        _findSounds["R"] = R;
-        _findSounds["P"] = P;
+        Instance = this;
     }
 
-    AudioClip GetFindSoundForLetter(string letter)
+    // ── Trial Lifecycle ───────────────────────────────────────────────────
+    public void StartTrial(string targetLetter, string currentcondition, int level)
     {
-        if (_findSounds.ContainsKey(letter))
-            return _findSounds[letter];
-        Debug.LogWarning($"No find sound for letter: {letter}");
-        return null;
-    }
-
-    public void StartTrial(string targetLetter)
-    {
+        ResetAllBlocks();
         _trialActive = true;
         _targetLetter = targetLetter;
         _pulsing = false;
+        _condition = currentcondition;
         _jumping = false;
         _timer = 0f;
         _wasGrabbed = false;
-  
+        _wasColorCorrect = false;
+        _wasShapeCorrect = false;
+
         StopAllCoroutines();
-        if (colorslot != null) colorslot.SetActive(true);
         if (armGuide != null) armGuide.Hide();
 
+        if (stateMachine != null)
+        {
+            stateMachine.targetLetter = targetLetter;
+            if (_condition == "A")
+                stateMachine.StartLevel(level);
+            else
+                stateMachine.PlayIntroOnly(level);
+        }
+
+        // show/hide disks and shapes based on level
+        if (level < 3)
+        {
+            SetDisksVisible(false);
+            SetShapesVisible(false);
+        }
+        else if (level < 6)
+        {
+            SetDisksVisible(true);
+            SetShapesVisible(false);
+        }
+        else
+        {
+            SetDisksVisible(true);
+            SetShapesVisible(true);
+        }
         StartCoroutine(FindTargetBlock());
+    }
+        void SetDisksVisible(bool visible)
+    {
+        if (redDisk != null) redDisk.gameObject.SetActive(visible);
+        if (blueDisk != null) blueDisk.gameObject.SetActive(visible);
+        if (greenDisk != null) greenDisk.gameObject.SetActive(visible);
+    }
+
+    void SetShapesVisible(bool visible)
+    {
+        if (sphereShape != null) sphereShape.gameObject.SetActive(visible);
+        if (cylinderShape != null) cylinderShape.gameObject.SetActive(visible);
+    }
+    void ResetAllBlocks()
+    {
+        foreach (SnapToPoint block in allBlocks)
+        {
+            LetterBox lb = block.GetComponentInChildren<LetterBox>();
+            if (lb == null) continue;
+            if (lb._mf != null) lb._mf.mesh = lb.OrigMesh;
+            if (lb._mr != null) lb._mr.material.color = lb.OrigColor;
+        }
     }
 
     IEnumerator FindTargetBlock()
@@ -85,7 +122,6 @@ public class TrialManager : MonoBehaviour
             if (lb != null && lb.letter == _targetLetter)
             {
                 _currentTargetBlock = block;
-                Debug.Log($"Found target block: {block.gameObject.name}");
                 break;
             }
         }
@@ -96,15 +132,12 @@ public class TrialManager : MonoBehaviour
 
     public void EndTrial(bool success)
     {
-        Debug.Log($"EndTrial called, success: {success}");
-
         _trialActive = false;
         _pulsing = false;
         _jumping = false;
         _timer = 0f;
         _wasGrabbed = false;
         StopAllCoroutines();
-        if (colorslot != null) colorslot.SetActive(true);
         if (armGuide != null) armGuide.Hide();
 
         if (_currentTargetBlock != null)
@@ -113,6 +146,8 @@ public class TrialManager : MonoBehaviour
             _currentTargetBlock.transform.position = _currentTargetBlock.assignedSlot.position;
         }
     }
+
+    // ── Update ────────────────────────────────────────────────────────────
     void Update()
     {
         if (!_trialActive) return;
@@ -126,66 +161,144 @@ public class TrialManager : MonoBehaviour
                         Vector3.Distance(_currentTargetBlock.transform.position,
                         gameManager.slot.position) < 0.05f;
 
-        if (isGrabbed != _wasGrabbed)
-        {
-            _timer = 0f;
-            _wasGrabbed = isGrabbed;
-            if (armGuide != null) armGuide.Hide();
-            if (isGrabbed)
-            {
-                _pulsing = false;
-                _jumping = false;
-                StopCoroutine("PulseLoop");
-                StopCoroutine("JumpShakeLoop");
-            }
-        }
+        LetterBox lb = _currentTargetBlock != null ? _currentTargetBlock.GetComponentInChildren<LetterBox>() : null;
+        bool colorCorrect = lb != null && (gameManager.levelColors[gameManager.currentLevel].ToLower() == "none" || lb.colorName == gameManager.levelColors[gameManager.currentLevel].ToLower());
+        bool shapeCorrect = lb != null && (gameManager.levelMesh[gameManager.currentLevel].ToLower() == "none" || lb.meshName.Contains(gameManager.levelMesh[gameManager.currentLevel].ToLower()));
 
-        _timer += Time.deltaTime;
-
-        if (_timer >= hesitationThreshold)
+        if (_condition == "A")
         {
-            _timer = 0f;
-            if (!isGrabbed)
+            // ── Grab state change ─────────────────────────────────────────
+            if (isGrabbed != _wasGrabbed)
             {
-                if (_condition == "A")
+                _timer = 0f;
+                _wasGrabbed = isGrabbed;
+
+                if (isGrabbed)
                 {
-                    // Condition A — find sound + jump + pulse
-                    AudioClip findClip = GetFindSoundForLetter(_targetLetter);
-                    if (gameManager.audioSource && findClip != null)
-                        gameManager.audioSource.PlayOneShot(findClip);
+                    _pulsing = false;
+                    _jumping = false;
+                    StopCoroutine("JumpShakeLoop");
 
-                    if (!_jumping && !_pulsing)
+                    _wasColorCorrect = false;
+                    _wasShapeCorrect = false;
+
+                    if (stateMachine != null)
                     {
-                        _pulsing = true;
-                        _jumping = true;
-                        StartCoroutine(PulseLoop());
-                        StartCoroutine(JumpShakeLoop());
+                        bool isCorrectCube = lb != null && lb.letter == _targetLetter;
+                        if (isCorrectCube)
+                        {
+                            stateMachine.OnCorrectCubeGrabbed();
+                            if (colorCorrect && gameManager.currentLevel >= 3) stateMachine.OnCorrectColorHit();
+                            if (shapeCorrect && gameManager.currentLevel >= 6) stateMachine.OnCorrectShapeHit();
+                        }
+
                     }
                 }
                 else
                 {
-                    // B1/B2 — point at cube
-                    if (armGuide != null && _currentTargetBlock != null)
-                        armGuide.Show(_currentTargetBlock.transform.position);
+                    if (stateMachine != null)
+                        stateMachine.OnCubeReleased();
                 }
             }
-            else if (!isOnSlot)
+
+
+            // ── Timer ─────────────────────────────────────────────────────
+            _timer += Time.deltaTime;
+
+            if (_timer >= stateMachine.threshold)
             {
-                if (_condition == "A")
+                _timer = 0f;
+
+                if (!isGrabbed && !_jumping && !_pulsing)
                 {
-                    // Condition A — play place in slot sound
-                    if (gameManager.audioSource && _placeInSlotSound != null)
-                        gameManager.audioSource.PlayOneShot(_placeInSlotSound);
+                    _pulsing = true;
+                    _jumping = true;
+                    StartCoroutine(PulseLoop());
+                    StartCoroutine(JumpShakeLoop());
                 }
-                else
+            }
+        }
+        else if (_condition == "B1" || _condition == "B2")
+        {
+            // ── Grab state change ─────────────────────────────────────────
+            if (isGrabbed != _wasGrabbed)
+            {
+                _timer = 0f;
+                _wasGrabbed = isGrabbed;
+                if (armGuide != null) armGuide.Hide();
+            }
+
+            // ── Color / Shape change while grabbed ────────────────────────
+            if (isGrabbed && (colorCorrect != _wasColorCorrect || shapeCorrect != _wasShapeCorrect))
+            {
+                _wasColorCorrect = colorCorrect;
+                _wasShapeCorrect = shapeCorrect;
+                _timer = 0f;
+                if (armGuide != null) armGuide.Hide();
+            }
+
+            // ── Timer ─────────────────────────────────────────────────────
+            _timer += Time.deltaTime;
+
+            if (_timer >= stateMachine.threshold)
+            {
+                _timer = 0f;
+
+                if (!isGrabbed)
                 {
-                    // B1/B2 — point at slot
-                    if (armGuide != null)
-                        armGuide.Show(gameManager.slot.position);
+                    if (armGuide != null && _currentTargetBlock != null)
+                        armGuide.Show(_currentTargetBlock.transform.position, false);
+                }
+                else if (!isOnSlot)
+                {
+                    if (_currentTargetBlock != null)
+                    {
+                        if (!colorCorrect)
+                        {
+                            Transform guideTarget = GetColorGuideTarget();
+                            if (armGuide != null && guideTarget != null)
+                                armGuide.Show(guideTarget.position, true);
+                        }
+                        else if (!shapeCorrect)
+                        {
+                            Transform guideTarget = GetShapeGuideTarget();
+                            if (armGuide != null && guideTarget != null)
+                                armGuide.Show(guideTarget.position, true);
+                        }
+                        else
+                        {
+                            if (armGuide != null)
+                                armGuide.Show(gameManager.slot.position, false);
+                        }
+                    }
                 }
             }
         }
     }
+
+    // ── Arm Guide Helpers ─────────────────────────────────────────────────
+    Transform GetColorGuideTarget()
+    {
+        switch (gameManager.levelColors[gameManager.currentLevel].ToLower())
+        {
+            case "red":   return redDisk;
+            case "blue":  return blueDisk;
+            case "green": return greenDisk;
+        }
+        return null;
+    }
+
+    Transform GetShapeGuideTarget()
+    {
+        switch (gameManager.levelMesh[gameManager.currentLevel].ToLower())
+        {
+            case "sphere":   return sphereShape;
+            case "cylinder": return cylinderShape;
+        }
+        return null;
+    }
+
+    // ── Condition A Visual Feedback ───────────────────────────────────────
     IEnumerator PulseLoop()
     {
         while (_pulsing)
@@ -203,15 +316,15 @@ public class TrialManager : MonoBehaviour
         if (_currentTargetBlock == null) yield break;
 
         float jumpHeight = 0.05f;
-        float jumpSpeed = 2f;
+        float jumpSpeed  = 2f;
 
         _currentTargetBlock.isBeingControlled = true;
-        
+
         Rigidbody rb = _currentTargetBlock.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.useGravity = false;
-            rb.linearVelocity = Vector3.zero;
+            rb.useGravity      = false;
+            rb.linearVelocity  = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
 
@@ -230,11 +343,11 @@ public class TrialManager : MonoBehaviour
 
             if (rb != null)
             {
-                rb.linearVelocity = Vector3.zero;
+                rb.linearVelocity  = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
             }
 
-            float t = Time.time * jumpSpeed;
+            float t       = Time.time * jumpSpeed;
             float yOffset = Mathf.Abs(Mathf.Sin(t)) * jumpHeight;
             _currentTargetBlock.transform.position = _currentTargetBlock.assignedSlot.position + Vector3.up * yOffset;
 
@@ -246,5 +359,3 @@ public class TrialManager : MonoBehaviour
         _currentTargetBlock.transform.position = _currentTargetBlock.assignedSlot.position;
     }
 }
-
-public enum BreakdownType { Hesitation, WrongPickup, MissSlot, Drop }
