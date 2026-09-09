@@ -1,17 +1,15 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using Unity.Netcode;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     public TrialManager trialmanager;
     public Transform slot;
     public TextMeshProUGUI targetLetterText;
     public TextMeshProUGUI resultText;
     public GameObject targetShape;
-
-
- 
 
     public Mesh cylinderMesh;
     public Mesh sphereMesh;
@@ -21,21 +19,70 @@ public class GameManager : MonoBehaviour
     public string[] levelLetters;
     public string[] levelColors;
     public string[] levelMesh;
-    public int currentLevel = 0;
 
-    public void SetCondition(string condition, string[] levelLettersCon, string[] levelColorsCon, string[] levelMeshCon)
+    public NetworkVariable<int> currentLevel = new NetworkVariable<int>(
+        0,
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Server
+    );
+
+    [Header("Conditions (set by AdminDashboardController)")]
+    public NetworkVariable<bool> isA = new NetworkVariable<bool>(
+        false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    public NetworkVariable<bool> isB1 = new NetworkVariable<bool>(
+        false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    public NetworkVariable<bool> isB2 = new NetworkVariable<bool>(
+        false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+
+    public override void OnNetworkSpawn()
     {
-        currentLevel = 0;
+        currentLevel.OnValueChanged += HandleLevelChanged;
+        isA.OnValueChanged += (_, _) => RefreshCondition();
+        isB1.OnValueChanged += (_, _) => RefreshCondition();
+        isB2.OnValueChanged += (_, _) => RefreshCondition();
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        currentLevel.OnValueChanged -= HandleLevelChanged;
+    }
+
+    public void SetTargets(string[] levelLettersCon, string[] levelColorsCon, string[] levelMeshCon)
+    {
+
         levelLetters = levelLettersCon;
         levelColors = levelColorsCon;
         levelMesh = levelMeshCon;
-        currentcondition=condition;
-        LoadLevel(currentLevel);
+        currentLevel.Value = 0; // triggers HandleLevelChanged on every machine
     }
 
-    void LoadLevel(int levelIndex)
+    /// <summary>Called by AdminDashboardController when a level trigger is poked.</summary>
+    public void GoToLevel(int levelIndex)
     {
-        StartCoroutine(LoadLevelRoutine(levelIndex));
+        if (!IsServer) return; // dashboard only ever runs on the host/server
+
+        if (levelLetters == null || levelIndex < 0 || levelIndex >= levelLetters.Length)
+        {
+            Debug.LogWarning($"GameManager: level index {levelIndex} is out of range.");
+            return;
+        }
+
+        currentLevel.Value = levelIndex;
+    }
+
+    void RefreshCondition()
+    {
+        var active = new System.Collections.Generic.List<string>();
+        if (isA.Value) active.Add("A");
+        if (isB1.Value) active.Add("B1");
+        if (isB2.Value) active.Add("B2");
+        currentcondition = string.Join("+", active);
+    }
+
+    // Fires on EVERY machine (host and client) once the new level value has synced.
+    void HandleLevelChanged(int oldLevel, int newLevel)
+    {
+        StartCoroutine(LoadLevelRoutine(newLevel));
     }
 
     IEnumerator LoadLevelRoutine(int levelIndex)
@@ -45,7 +92,15 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        trialmanager.StartTrial(levelLetters[levelIndex], currentcondition, levelIndex);
+        if (trialmanager != null && trialmanager.stateMachine != null)
+        {
+            trialmanager.stateMachine.targetLetter = levelLetters[levelIndex];
+            trialmanager.stateMachine.PlayIntroOnly(levelIndex);
+        }
+
+        // Runs locally on both machines — TrialManager itself stays a plain
+        // MonoBehaviour and doesn't care whether this machine is host or client.
+        trialmanager.StartTrial(levelLetters[levelIndex], levelIndex);
 
         if (targetLetterText != null) targetLetterText.text = levelLetters[levelIndex];
 
@@ -67,15 +122,15 @@ public class GameManager : MonoBehaviour
         {
             case "sphere":
                 meshFilter.mesh = sphereMesh;
-                targetShape.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                targetShape.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
                 break;
             case "cube":
                 meshFilter.mesh = cubeMesh;
-                targetShape.transform.localScale = new Vector3(0.15f, 0.11f, 0.1f);
+                targetShape.transform.localScale = new Vector3(0.25f, 0.21f, 0.2f);
                 break;
             case "cylinder":
                 meshFilter.mesh = cylinderMesh;
-                targetShape.transform.localScale = new Vector3(0.25f, 0.15f, 0.15f);
+                targetShape.transform.localScale = new Vector3(0.35f, 0.25f, 0.25f);
                 break;
             case "none":
                 meshFilter.mesh = noMesh;
@@ -85,6 +140,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
     void UpdateColor(string colorName)
     {
         if (colorName.ToLower() == "same") return;
@@ -111,36 +167,57 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
     public bool IsCorrectLetter(string letter, string meshName, string colorName, out bool colorMatch, out bool meshMatch, out bool letterMatch)
     {
         letterMatch = letter == targetLetterText.text.Trim();
-        meshMatch  = levelMesh[currentLevel].ToLower() == "none" || meshName.Contains(levelMesh[currentLevel].ToLower());
-        colorMatch = levelColors[currentLevel].ToLower() == "none" || colorName == levelColors[currentLevel].ToLower();
-
-        Debug.Log($"Meshname: {meshName} vs {levelMesh[currentLevel]}");
-        Debug.Log($"Color: {colorName} vs {levelColors[currentLevel].ToLower()}");
+        meshMatch = levelMesh[currentLevel.Value].ToLower() == "none" || meshName.Contains(levelMesh[currentLevel.Value].ToLower());
+        colorMatch = levelColors[currentLevel.Value].ToLower() == "none" || colorName == levelColors[currentLevel.Value].ToLower();
 
         return letterMatch && colorMatch && meshMatch;
     }
 
     public bool IsCorrectColor(string colorName)
     {
-        return levelColors[currentLevel].ToLower() == "none" || colorName == levelColors[currentLevel].ToLower();
+        return levelColors[currentLevel.Value].ToLower() == "none" || colorName == levelColors[currentLevel.Value].ToLower();
     }
 
     public bool IsCorrectShape(string meshName)
     {
-        return levelMesh[currentLevel].ToLower() == "none" || meshName.Contains(levelMesh[currentLevel].ToLower());
+        return levelMesh[currentLevel.Value].ToLower() == "none" || meshName.Contains(levelMesh[currentLevel.Value].ToLower());
     }
-    public void OnCorrect()
+
+    // ── Called from TrialManager/SnapToPoint when a block is placed correctly. ──
+    // Works no matter which machine (host or client) is the one actually playing,
+    // since either could be holding the cube thanks to Meta's networked grabbable
+    // ownership transfer.
+    public void ReportCorrect()
     {
+        if (IsServer)
+        {
+            OnCorrect(); // this machine already IS the server — no RPC needed
+        }
+        else
+        {
+            ReportCorrectRpc(); // client asks the server to advance the level
+        }
+    }
+
+    [Rpc(SendTo.Server)]
+    private void ReportCorrectRpc()
+    {
+        OnCorrect();
+    }
+
+    private void OnCorrect()
+    {
+        // Runs only on the server, either directly (host played) or via RPC (client played).
         StartCoroutine(NextLevelAfterDelay());
     }
 
     IEnumerator NextLevelAfterDelay()
     {
-        yield return new WaitForSeconds(2f);
-        currentLevel++;
-        LoadLevel(currentLevel);
+        yield return new WaitForSeconds(4f);
+        currentLevel.Value = currentLevel.Value + 1; // triggers HandleLevelChanged on both machines
     }
 }

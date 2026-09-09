@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
-
-public class LetterBox : MonoBehaviour
+using Unity.Netcode;
+public class LetterBox : NetworkBehaviour
 {
     [HideInInspector] public string letter;
     public TextMeshProUGUI label;

@@ -6,15 +6,16 @@ public class ArmGuideCubeToItsSlot : MonoBehaviour
     public Transform armRoot;
     public Transform fingerTip;
     public Animator handAnimator;
-    public GameManager gameManager;
-    public string CurrentCondition => gameManager.currentcondition;
+    public Transform slot;
+
     bool _showing = false;
     Vector3 _targetPosition;
 
     void Start() => SetVisibility(false);
 
-    public void Show(Vector3 targetPosition, bool isAtColorOrShape)
+    public void Show(Vector3 targetPosition, bool isAtColorOrShape, bool isB1, bool isB2)
     {
+
         _targetPosition = targetPosition;
 
         if (!_showing)
@@ -23,15 +24,15 @@ public class ArmGuideCubeToItsSlot : MonoBehaviour
             transform.position = desired;
         }
 
-        if (CurrentCondition == "B1")
+        if (isB1)
         {
             if (handAnimator != null)
                 handAnimator.SetBool("isPointing", true);
         }
 
-        if (CurrentCondition == "B2")
+        if (isB2)
         {
-            bool useRelease = Vector3.Distance(_targetPosition, gameManager.slot.position) < 0.05f;
+            bool useRelease = Vector3.Distance(_targetPosition, slot.position) < 0.05f;
 
             if (handAnimator != null)
             {

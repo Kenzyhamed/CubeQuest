@@ -1,7 +1,8 @@
 using UnityEngine;
 using Oculus.Interaction;
+using Unity.Netcode;
 
-public class SnapToPoint : MonoBehaviour
+public class SnapToPoint : NetworkBehaviour
 {
     public Transform[] snapPoints;
     public float snapDistance = 0.5f;
@@ -33,8 +34,12 @@ public class SnapToPoint : MonoBehaviour
 
     void Update()
     {
-        condition=gameManager.currentcondition;
         if (isBeingControlled) return;
+
+        // Only the owner runs snap-detection / position writes, to avoid
+        // fighting NetworkTransform. Audio triggers below are broadcast
+        // via RPC specifically so the non-owner still hears them.
+        if (!IsOwner) return;
 
         bool isGrabbed = _grabbable != null &&
                         _grabbable.GrabPoints != null &&
@@ -123,28 +128,54 @@ public class SnapToPoint : MonoBehaviour
         {
             TrialManager.Instance?.EndTrial(success: true);
 
-            //if (condition == "A")
-            //{
-            if (stateMachine != null) stateMachine.OnCorrectPlaced();
-            //}
+            PlayCorrectPlacedRpc(); // broadcasts to host AND client
+
             SendHome();
-            gameManager.OnCorrect();
+            gameManager.ReportCorrect();
             _snappedToSlot = false;
         }
         else
         {
-            if (condition == "A" && stateMachine != null)
+            if (condition == "A")
             {
                 if (!lMatch)
-                    stateMachine.OnWrongPlaced();
+                    PlayWrongPlacedRpc();
                 else if (!cMatch)
-                    stateMachine.OnWrongColorHit();
+                    PlayWrongColorRpc();
                 else if (!mMatch)
-                    stateMachine.OnWrongShapeHit();
+                    PlayWrongShapeRpc();
             }
             SendHome();
             _snappedToSlot = false;
         }
+    }
+
+    // ── Audio broadcasts ──────────────────────────────────────────────────
+    // Called only by the owner (RunCheck only ever runs there), but SendTo
+    // makes the resulting sound play on every machine's own local
+    // stateMachine/AudioSource — not just the owner's.
+    [Rpc(SendTo.ClientsAndHost)]
+    void PlayCorrectPlacedRpc()
+    {
+        if (stateMachine != null) stateMachine.OnCorrectPlaced();
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    void PlayWrongPlacedRpc()
+    {
+        if (stateMachine != null) stateMachine.OnWrongPlaced();
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    void PlayWrongColorRpc()
+    {
+        if (stateMachine != null) stateMachine.OnWrongColorHit();
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    void PlayWrongShapeRpc()
+    {
+        if (stateMachine != null) stateMachine.OnWrongShapeHit();
     }
 
     public void SendHome()

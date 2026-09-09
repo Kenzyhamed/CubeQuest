@@ -13,50 +13,53 @@ public class SoundStateMachine : MonoBehaviour
         PlaceCycle,
         Done
     }
-  
+
     [Header("References")]
     public AudioSource audioSource;
     public GameManager gamemanager;
-    public int currentLevel => gamemanager.currentLevel;
+    public int currentLevel => gamemanager.currentLevel.Value;
 
-    [Header("Shared Sounds")]
-    public AudioClip findLetter;
-    public AudioClip FindM;
-    public AudioClip FindN;
-    public AudioClip FindL;
-    public AudioClip FindK;
-    public AudioClip FindF;
-    public AudioClip FindE;
-    public AudioClip FindR;
-    public AudioClip FindP;
-    public AudioClip reachForLetter;
-    public AudioClip ReachM;
-    public AudioClip ReachN;
-    public AudioClip ReachL;
-    public AudioClip ReachK;
-    public AudioClip ReachF;
-    public AudioClip ReachE;
-    public AudioClip ReachR;
-    public AudioClip ReachP;
-    public AudioClip placeOnSlot;
-    public AudioClip wellDone;
-    public AudioClip tryAgain;
+    [Header("Find/Reach the cube - general (not letter-specific, mixed into every pool)")]
+    public AudioClip[] findGeneral;
+
+    [Header("Find/Reach the cube - one pool per letter (mix of find + reach lines)")]
+    public AudioClip[] LetterM;
+    public AudioClip[] LetterN;
+    public AudioClip[] LetterL;
+    public AudioClip[] LetterK;
+    public AudioClip[] LetterF;
+    public AudioClip[] LetterE;
+    public AudioClip[] LetterR;
+    public AudioClip[] LetterP;
+
+    [Header("Place on slot")]
+    public AudioClip[] placeOnSlot;
+
+    [Header("Success")]
+    public AudioClip[] correct;
 
     [Header("1-3 Sounds")]
     public AudioClip introL;
 
     [Header("4-6 Sounds")]
     public AudioClip introC;
-    public AudioClip hitTargetRed;
-    public AudioClip hitTargetBlue;
-    public AudioClip hitTargetGreen;
-    public AudioClip wrongColor;
+
+    [Header("Color hits")]
+    public AudioClip[] hitRed;
+    public AudioClip[] hitBlue;
+    public AudioClip[] hitGreen;
 
     [Header("7-10 Sounds")]
     public AudioClip introS;
-    public AudioClip hitTargetSphere;
-    public AudioClip hitTargetCyl;
-    public AudioClip wrongShape;
+
+    [Header("Shape hits")]
+    public AudioClip[] hitSphere;
+    public AudioClip[] hitCylinder;
+
+    [Header("Wrong feedback")]
+    public AudioClip[] wrongColor;
+    public AudioClip[] wrongLetter;
+    public AudioClip[] wrongShape;
 
     [HideInInspector] public string targetLetter;
     [HideInInspector] public string targetColor;
@@ -67,36 +70,38 @@ public class SoundStateMachine : MonoBehaviour
     State _currentState;
     Coroutine _activeCoroutine;
 
-    // ── Letter-specific clips ─────────────────────────────────────────────
+    bool ConditionAActive => gamemanager != null && gamemanager.isA.Value;
+
+    AudioClip PickRandom(AudioClip[] clips)
+    {
+        if (clips == null || clips.Length == 0) return null;
+        return clips[Random.Range(0, clips.Length)];
+    }
+
+    AudioClip PickCombined(AudioClip[] specific, AudioClip[] general)
+    {
+        int specificLen = specific?.Length ?? 0;
+        int generalLen = general?.Length ?? 0;
+        int total = specificLen + generalLen;
+        if (total == 0) return null;
+
+        int index = Random.Range(0, total);
+        return index < specificLen ? specific[index] : general[index - specificLen];
+    }
+
     AudioClip GetFindClip()
     {
         switch (targetLetter.ToUpper())
         {
-            case "M": return FindM != null ? FindM : findLetter;
-            case "N": return FindN != null ? FindN : findLetter;
-            case "L": return FindL != null ? FindL : findLetter;
-            case "K": return FindK != null ? FindK : findLetter;
-            case "F": return FindF != null ? FindF : findLetter;
-            case "E": return FindE != null ? FindE : findLetter;
-            case "R": return FindR != null ? FindR : findLetter;
-            case "P": return FindP != null ? FindP : findLetter;
-            default:  return findLetter;
-        }
-    }
-
-    AudioClip GetReachClip()
-    {
-        switch (targetLetter.ToUpper())
-        {
-            case "M": return ReachM != null ? ReachM : reachForLetter;
-            case "N": return ReachN != null ? ReachN : reachForLetter;
-            case "L": return ReachL != null ? ReachL : reachForLetter;
-            case "K": return ReachK != null ? ReachK : reachForLetter;
-            case "F": return ReachF != null ? ReachF : reachForLetter;
-            case "E": return ReachE != null ? ReachE : reachForLetter;
-            case "R": return ReachR != null ? ReachR : reachForLetter;
-            case "P": return ReachP != null ? ReachP : reachForLetter;
-            default:  return reachForLetter;
+            case "M": return PickCombined(LetterM, findGeneral);
+            case "N": return PickCombined(LetterN, findGeneral);
+            case "L": return PickCombined(LetterL, findGeneral);
+            case "K": return PickCombined(LetterK, findGeneral);
+            case "F": return PickCombined(LetterF, findGeneral);
+            case "E": return PickCombined(LetterE, findGeneral);
+            case "R": return PickCombined(LetterR, findGeneral);
+            case "P": return PickCombined(LetterP, findGeneral);
+            default:  return PickRandom(findGeneral);
         }
     }
 
@@ -104,9 +109,9 @@ public class SoundStateMachine : MonoBehaviour
     {
         switch (gamemanager.levelColors[currentLevel].ToLower())
         {
-            case "red":   return hitTargetRed;
-            case "blue":  return hitTargetBlue;
-            case "green": return hitTargetGreen;
+            case "red":   return PickRandom(hitRed);
+            case "blue":  return PickRandom(hitBlue);
+            case "green": return PickRandom(hitGreen);
             default:      return null;
         }
     }
@@ -115,8 +120,8 @@ public class SoundStateMachine : MonoBehaviour
     {
         switch (gamemanager.levelMesh[currentLevel].ToLower())
         {
-            case "sphere":   return hitTargetSphere;
-            case "cylinder": return hitTargetCyl;
+            case "sphere":   return PickRandom(hitSphere);
+            case "cylinder": return PickRandom(hitCylinder);
             default:         return null;
         }
     }
@@ -126,9 +131,10 @@ public class SoundStateMachine : MonoBehaviour
         return Mathf.Max(0, threshold - (clip != null ? clip.length : 0));
     }
 
-    // ── StartLevel ────────────────────────────────────────────────────────
     public void StartLevel(int levelIndex)
     {
+        if (!ConditionAActive) return;
+
         SetState(State.Idle);
 
         if (levelIndex < 3)
@@ -139,7 +145,6 @@ public class SoundStateMachine : MonoBehaviour
             _activeCoroutine = StartCoroutine(IntroThenFind(introS));
     }
 
-    // ── State setter ──────────────────────────────────────────────────────
     void SetState(State newState)
     {
         _currentState = newState;
@@ -152,7 +157,6 @@ public class SoundStateMachine : MonoBehaviour
             audioSource.Stop();
     }
 
-    // ── Play and wait ─────────────────────────────────────────────────────
     IEnumerator PlayAndWait(AudioClip clip)
     {
         if (audioSource == null || clip == null) yield break;
@@ -167,7 +171,11 @@ public class SoundStateMachine : MonoBehaviour
         _activeCoroutine = StartCoroutine(PlayAndWait(intro));
     }
 
-    // ── Intro → FindCycle ─────────────────────────────────────────────────
+    public void StopAudio()
+    {
+        SetState(State.Idle);
+    }
+
     IEnumerator IntroThenFind(AudioClip intro)
     {
         yield return StartCoroutine(PlayAndWait(intro));
@@ -175,58 +183,53 @@ public class SoundStateMachine : MonoBehaviour
         _activeCoroutine = StartCoroutine(FindCycleLoop());
     }
 
-    // ── Find cycle ────────────────────────────────────────────────────────
     IEnumerator FindCycleLoop()
     {
-        int step = 0;
         while (_currentState == State.FindCycle)
         {
-            AudioClip clip = (step % 4 < 2) ? GetFindClip() : GetReachClip();
-            yield return new WaitForSeconds(WaitTime(clip));
-            if (_currentState != State.FindCycle) yield break;
+            AudioClip clip = GetFindClip();
             yield return StartCoroutine(PlayAndWait(clip));
-            step++;
+            if (_currentState != State.FindCycle) yield break;
+            yield return new WaitForSeconds(WaitTime(clip));
         }
     }
 
-    // ── Color cycle ───────────────────────────────────────────────────────
     IEnumerator ColorCycleLoop()
     {
         while (_currentState == State.ColorCycle)
         {
             AudioClip clip = GetColorClip();
-            yield return new WaitForSeconds(WaitTime(clip));
-            if (_currentState != State.ColorCycle) yield break;
             yield return StartCoroutine(PlayAndWait(clip));
+            if (_currentState != State.ColorCycle) yield break;
+            yield return new WaitForSeconds(WaitTime(clip));
         }
     }
 
-    // ── Shape cycle ───────────────────────────────────────────────────────
     IEnumerator ShapeCycleLoop()
     {
         while (_currentState == State.ShapeCycle)
         {
             AudioClip clip = GetShapeClip();
-            yield return new WaitForSeconds(WaitTime(clip));
-            if (_currentState != State.ShapeCycle) yield break;
             yield return StartCoroutine(PlayAndWait(clip));
+            if (_currentState != State.ShapeCycle) yield break;
+            yield return new WaitForSeconds(WaitTime(clip));
         }
     }
 
-    // ── Place cycle ───────────────────────────────────────────────────────
     IEnumerator PlaceCycleLoop()
     {
         while (_currentState == State.PlaceCycle)
         {
-            yield return new WaitForSeconds(WaitTime(placeOnSlot));
+            AudioClip clip = PickRandom(placeOnSlot);
+            yield return StartCoroutine(PlayAndWait(clip));
             if (_currentState != State.PlaceCycle) yield break;
-            yield return StartCoroutine(PlayAndWait(placeOnSlot));
+            yield return new WaitForSeconds(WaitTime(clip));
         }
     }
 
-    // ── Grabbed routing ───────────────────────────────────────────────────
     public void OnCorrectCubeGrabbed()
     {
+        if (!ConditionAActive) return;
         if (_currentState == State.Done) return;
         SetState(State.Grabbed);
 
@@ -252,11 +255,9 @@ public class SoundStateMachine : MonoBehaviour
         _activeCoroutine = StartCoroutine(ColorCycleLoop());
     }
 
-    // ── Wrong cube ────────────────────────────────────────────────────────
-
-    // ── Color hit ─────────────────────────────────────────────────────────
     public void OnCorrectColorHit()
     {
+        if (!ConditionAActive) return;
         if (currentLevel < 6)
         {
             SetState(State.PlaceCycle);
@@ -285,20 +286,21 @@ public class SoundStateMachine : MonoBehaviour
 
     public void OnWrongColorHit()
     {
+        if (!ConditionAActive) return;
         SetState(State.ColorCycle);
         _activeCoroutine = StartCoroutine(WrongColorThenCycle());
     }
 
     IEnumerator WrongColorThenCycle()
     {
-        yield return StartCoroutine(PlayAndWait(wrongColor));
+        yield return StartCoroutine(PlayAndWait(PickRandom(wrongColor)));
         if (_currentState != State.ColorCycle) yield break;
         _activeCoroutine = StartCoroutine(ColorCycleLoop());
     }
 
-    // ── Shape hit ─────────────────────────────────────────────────────────
     public void OnCorrectShapeHit()
     {
+        if (!ConditionAActive) return;
         SetState(State.PlaceCycle);
         _activeCoroutine = StartCoroutine(ShapeCorrectToPlace());
     }
@@ -312,41 +314,43 @@ public class SoundStateMachine : MonoBehaviour
 
     public void OnWrongShapeHit()
     {
+        if (!ConditionAActive) return;
         SetState(State.ShapeCycle);
         _activeCoroutine = StartCoroutine(WrongShapeThenCycle());
     }
 
     IEnumerator WrongShapeThenCycle()
     {
-        yield return StartCoroutine(PlayAndWait(wrongShape));
+        yield return StartCoroutine(PlayAndWait(PickRandom(wrongShape)));
         if (_currentState != State.ShapeCycle) yield break;
         _activeCoroutine = StartCoroutine(ShapeCycleLoop());
     }
 
-    // ── Placed ────────────────────────────────────────────────────────────
     public void OnCorrectPlaced()
     {
+        if (!ConditionAActive) return;
         SetState(State.Done);
-        _activeCoroutine = StartCoroutine(PlayAndWait(wellDone));
+        _activeCoroutine = StartCoroutine(PlayAndWait(PickRandom(correct)));
     }
 
     public void OnWrongPlaced()
     {
+        if (!ConditionAActive) return;
         SetState(State.FindCycle);
         _activeCoroutine = StartCoroutine(WrongPlacedThenFind());
     }
 
     IEnumerator WrongPlacedThenFind()
     {
-        yield return StartCoroutine(PlayAndWait(tryAgain));
+        yield return StartCoroutine(PlayAndWait(PickRandom(wrongLetter)));
         if (_currentState != State.FindCycle) yield break;
         yield return StartCoroutine(PlayAndWait(GetFindClip()));
         _activeCoroutine = StartCoroutine(FindCycleLoop());
     }
 
-    // ── Released ──────────────────────────────────────────────────────────
     public void OnCubeReleased()
     {
+        if (!ConditionAActive) return;
         if (_currentState == State.Grabbed    ||
             _currentState == State.PlaceCycle ||
             _currentState == State.ColorCycle ||
