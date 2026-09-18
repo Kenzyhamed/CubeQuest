@@ -3476,6 +3476,7 @@ GameObject:
   - component: {fileID: 161316461}
   - component: {fileID: 161316460}
   - component: {fileID: 161316459}
+  - component: {fileID: 161316464}
   m_Layer: 0
   m_Name: '[BuildingBlock] Camera Rig'
   m_TagString: Untagged
@@ -3640,8 +3641,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161316458}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00179046, y: 0.00090265635, z: 0.000034285473, w: -0.999998}
-  m_LocalPosition: {x: 0.077765495, y: 1.1227683, z: 1.3209242}
+  m_LocalRotation: {x: 0.0017904601, y: 0.00090265635, z: 0.000034285476, w: -0.999998}
+  m_LocalPosition: {x: 10.059098, y: 0.21475601, z: 0.14152193}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3649,6 +3650,19 @@ Transform:
   - {fileID: 667215792}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &161316464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161316458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6a39c1293ce35c4a873292267f8c013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawnPositioner
+  startSpot: {fileID: 38247994}
 --- !u!1 &161353126
 GameObject:
   m_ObjectHideFlags: 0
@@ -10732,6 +10746,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   enterButton: {fileID: 438330703}
   tutorial: {fileID: 1575531331}
+  positioner: {fileID: 161316464}
 --- !u!4 &522959485
 Transform:
   m_ObjectHideFlags: 0
@@ -29934,8 +29949,8 @@ Transform:
   m_GameObject: {fileID: 1714539559}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.43, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.001}
+  m_LocalPosition: {x: 0, y: 1.74, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 0.001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1385655776}
@@ -36775,81 +36790,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1501603277}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2113504974
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2113504977}
-  - component: {fileID: 2113504975}
-  - component: {fileID: 2113504976}
-  m_Layer: 0
-  m_Name: Poistioner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2113504975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2113504974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3068685199
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  m_InScenePlacedDisabledByDefault: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  m_InScenePlaced: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
---- !u!114 &2113504976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2113504974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6a39c1293ce35c4a873292267f8c013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawnPositioner
-  ShowTopMostFoldoutHeaderGroup: 1
-  waitingSpot: {fileID: 1232185878}
-  startSpot: {fileID: 38247994}
---- !u!4 &2113504977
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2113504974}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.0724, y: 0.21499, z: 0.20975}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2120957841
 GameObject:
   m_ObjectHideFlags: 0
@@ -37070,7 +37010,6 @@ SceneRoots:
   - {fileID: 1646320302}
   - {fileID: 1317296627}
   - {fileID: 776369555}
-  - {fileID: 2113504977}
   - {fileID: 522959485}
   - {fileID: 38247994}
   - {fileID: 1575531332}

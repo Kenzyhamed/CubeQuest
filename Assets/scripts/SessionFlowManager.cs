@@ -7,7 +7,7 @@ public class SessionFlowManager : NetworkBehaviour
 {
     [SerializeField] private GameObject enterButton; // the poke-interactable button GameObject
     [SerializeField] private IntroTimelineController tutorial;
-
+    [SerializeField] private PlayerSpawnPositioner positioner;
     private readonly NetworkVariable<int> _connectedCount = new(
         0,
         NetworkVariableReadPermission.Everyone,
@@ -56,11 +56,8 @@ public class SessionFlowManager : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     private void BeginSessionRpc()
     {
-        var localPlayer = NetworkManager.Singleton.LocalClient?.PlayerObject;
-        if (localPlayer != null && localPlayer.TryGetComponent(out PlayerSpawnPositioner positioner))
-        {
             positioner.MoveToStartSpot();
             tutorial.Play();
-        }
+
     }
 }
