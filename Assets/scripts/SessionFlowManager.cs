@@ -48,6 +48,7 @@ public class SessionFlowManager : NetworkBehaviour
     // Wire this to the poke interactable's "When Select" UnityEvent in the Inspector
     public void OnEnterPressed()
     {
+        Debug.Log("pressed on enter");
         if (!IsHost) return;
         enterButton.SetActive(false);
         BeginSessionRpc();
@@ -56,6 +57,7 @@ public class SessionFlowManager : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     private void BeginSessionRpc()
     {
+            Debug.Log("Begin Session enter");
             positioner.MoveToStartSpot();
             tutorial.Play();
 
