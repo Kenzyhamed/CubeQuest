@@ -53,7 +53,7 @@ public class GameManager : NetworkBehaviour
         levelLetters = levelLettersCon;
         levelColors = levelColorsCon;
         levelMesh = levelMeshCon;
-        currentLevel.Value = 0; // triggers HandleLevelChanged on every machine
+   
     }
 
     /// <summary>Called by AdminDashboardController when a level trigger is poked.</summary>
