@@ -941,11 +941,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: 34e27682-71e8-4be0-b164-3004e4fdc5f5
+  cloudProjectId: 85f426c4-50a1-47e7-b967-190734db75f4
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: LetterGame
-  organizationId: kenzyhamed04
+  organizationId: kenzyhamed_unity
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

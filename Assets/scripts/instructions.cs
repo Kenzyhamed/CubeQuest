@@ -44,13 +44,11 @@ public class IntroTimelineController : MonoBehaviour
     public float blinkInterval = 0.2f;
     public float slowBlinkInterval = 0.4f;
 
+    public TargetManager targetmanager;
+
     Coroutine _shelfBlink, _cubeBounce, _diskBlink, _shapeBlink, _slotBlink, _letterBlink, _targetBlink, _mBounce;
     Vector3 _mCubeStartPos;
 
-    void Start()
-    {
-        Play();
-    }
 
     public void Play()
     {
@@ -142,6 +140,7 @@ public class IntroTimelineController : MonoBehaviour
         yield return StartCoroutine(HandDemo(isB2: true));
 
         // timeline complete
+        targetmanager.SetTargets();
     }
 
     // ── Blink helpers ────────────────────────────────────────────────────
