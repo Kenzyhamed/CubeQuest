@@ -53,6 +53,11 @@ public class GameManager : NetworkBehaviour
         levelLetters = levelLettersCon;
         levelColors = levelColorsCon;
         levelMesh = levelMeshCon;
+        if (IsServer)
+        {
+            currentLevel.Value = 0;
+        }
+        
    
     }
 
@@ -66,8 +71,11 @@ public class GameManager : NetworkBehaviour
             Debug.LogWarning($"GameManager: level index {levelIndex} is out of range.");
             return;
         }
+        if (IsServer)
+        {
+            currentLevel.Value = levelIndex;
+        }
 
-        currentLevel.Value = levelIndex;
     }
 
     void RefreshCondition()
@@ -218,6 +226,12 @@ public class GameManager : NetworkBehaviour
     IEnumerator NextLevelAfterDelay()
     {
         yield return new WaitForSeconds(4f);
-        currentLevel.Value = currentLevel.Value + 1; // triggers HandleLevelChanged on both machines
+        if (IsServer)
+        {
+            currentLevel.Value = currentLevel.Value + 1; // triggers HandleLevelChanged on both machines
+        }
+
+
+
     }
 }

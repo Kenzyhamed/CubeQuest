@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class IntroTimelineController : MonoBehaviour
+public class FirstTutorial: MonoBehaviour
 {
     [Header("Audio")]
     public AudioSource audioSource;

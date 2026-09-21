@@ -7,6 +7,7 @@ public class RoleManager : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        adminDashboard.SetActive(IsHost);
+        if (adminDashboard != null)
+            adminDashboard.SetActive(IsHost);
     }
 }

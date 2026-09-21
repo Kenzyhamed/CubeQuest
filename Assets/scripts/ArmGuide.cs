@@ -3,8 +3,6 @@ using UnityEngine;
 public class ArmGuideCubeToItsSlot : MonoBehaviour
 {
     [Header("What moves")]
-    public Transform armRoot;
-    public Transform fingerTip;
     public Animator handAnimator;
     public Transform slot;
 

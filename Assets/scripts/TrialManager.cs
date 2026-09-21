@@ -19,10 +19,12 @@ public class TrialManager : MonoBehaviour
     public Transform redDisk;
     public Transform blueDisk;
     public Transform greenDisk;
+    public Transform colorPanel;
 
     [Header("Shapes")]
     public Transform sphereShape;
     public Transform cylinderShape;
+    public Transform shapePanel;
 
     // ── Blocks ────────────────────────────────────────────────────────────
     [Header("Letter Blocks")]
@@ -88,16 +90,22 @@ public class TrialManager : MonoBehaviour
         {
             SetDisksVisible(false);
             SetShapesVisible(false);
+            SetShapePanel(false);
+            SetColorPanel(false);
         }
         else if (level < 12)
         {
             SetDisksVisible(true);
             SetShapesVisible(false);
+            SetShapePanel(false);
+            SetColorPanel(true);
         }
         else
         {
             SetDisksVisible(true);
             SetShapesVisible(true);
+            SetShapePanel(true);
+            SetColorPanel(true);
         }
         StartCoroutine(FindTargetBlock());
     }
@@ -113,6 +121,14 @@ public class TrialManager : MonoBehaviour
     {
         if (sphereShape != null) sphereShape.gameObject.SetActive(visible);
         if (cylinderShape != null) cylinderShape.gameObject.SetActive(visible);
+    }
+    void SetShapePanel(bool visible)
+    {
+        if (shapePanel != null) shapePanel.gameObject.SetActive(visible);
+    }
+    void SetColorPanel(bool visible)
+    {
+        if (colorPanel != null) colorPanel.gameObject.SetActive(visible);
     }
 
     void ResetAllBlocks()

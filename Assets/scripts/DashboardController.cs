@@ -7,23 +7,53 @@ public class AdminDashboardController : NetworkBehaviour
     [Header("References")]
     [Tooltip("Assign your scene's GameManager here.")]
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private TutorialModeController tutorialMode;
+    [SerializeField] private FirstTutorial tut1;
+    [SerializeField] private SecondTutorial tut2;
+    [SerializeField] private ThirdTutorial tut3;
+
 
     public void ToggleA()
     {
         if (!ValidateGameManager()) return;
-        gameManager.isA.Value = !gameManager.isA.Value;
+        if (IsServer)
+        {
+            gameManager.isA.Value = !gameManager.isA.Value;
+        }
+
+    }
+    public void StartT1()
+    {
+        tutorialMode.BeginTutorial();
+        tut1.Play();
+    }
+    public void StartT2()
+    {
+        tutorialMode.BeginTutorial();
+        tut2.Play();
+    }
+    public void StartT3()
+    {
+        tutorialMode.BeginTutorial();
+        tut2.Play();
     }
 
     public void ToggleB1()
     {
         if (!ValidateGameManager()) return;
-        gameManager.isB1.Value = !gameManager.isB1.Value;
+        if (IsServer)
+        {
+            gameManager.isB1.Value = !gameManager.isB1.Value;
+        }
     }
 
     public void ToggleB2()
     {
         if (!ValidateGameManager()) return;
-        gameManager.isB2.Value = !gameManager.isB2.Value;
+        if (IsServer)
+        {
+            gameManager.isB2.Value = !gameManager.isB2.Value;
+        }
     }
 
     public void ChangeLevel(GameObject poked)

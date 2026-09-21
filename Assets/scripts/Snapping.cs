@@ -5,6 +5,7 @@ using Unity.Netcode;
 public class SnapToPoint : NetworkBehaviour
 {
     public Transform[] snapPoints;
+    public TutorialModeController tutorialmode;
     public float snapDistance = 0.5f;
 
     [Header("Return to slot settings")]
@@ -118,6 +119,7 @@ public class SnapToPoint : NetworkBehaviour
 
     void RunCheck()
     {
+        if(tutorialmode.IsTutorialActive) return;
         _checkPending = false;
         LetterBox lb = GetComponentInChildren<LetterBox>();
         if (lb == null) return;
@@ -135,7 +137,7 @@ public class SnapToPoint : NetworkBehaviour
             _snappedToSlot = false;
         }
         else
-        {
+        {   
             if (condition == "A")
             {
                 if (!lMatch)

@@ -6,7 +6,7 @@ using UnityEngine;
 public class SessionFlowManager : NetworkBehaviour
 {
     [SerializeField] private GameObject enterButton; // the poke-interactable button GameObject
-    [SerializeField] private IntroTimelineController tutorial;
+    [SerializeField] private FirstTutorial tutorialOne;
     [SerializeField] private PlayerSpawnPositioner positioner;
     private readonly NetworkVariable<int> _connectedCount = new(
         0,
@@ -15,9 +15,6 @@ public class SessionFlowManager : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (enterButton != null)
-            enterButton.SetActive(false);
-
         if (IsServer)
         {
             _connectedCount.Value = NetworkManager.Singleton.ConnectedClientsList.Count;
@@ -59,7 +56,7 @@ public class SessionFlowManager : NetworkBehaviour
     {
             Debug.Log("Begin Session enter");
             positioner.MoveToStartSpot();
-            tutorial.Play();
+            tutorialOne.Play();
 
     }
 }
