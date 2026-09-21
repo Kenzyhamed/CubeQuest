@@ -19984,26 +19984,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 993a710c8b70f1f4fae7c333a0875dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThirdTutorial
-  audioSource: {fileID: 0}
-  introVoiceover: {fileID: 0}
-  findMSound: {fileID: 0}
-  shelves: []
-  letterCubes: []
-  disks: []
-  shapes: []
-  targetLetterDisplay: {fileID: 0}
-  targetShapeObject: {fileID: 0}
-  cubeMesh: {fileID: 0}
-  cylinderMesh: {fileID: 0}
-  yellowSlot: {fileID: 0}
-  mCube: {fileID: 0}
+  audioSource: {fileID: 1974196208}
+  introVoiceover: {fileID: 8300000, guid: 0790651656f534b46b5c84169ab3c05e, type: 3}
+  findMSound: {fileID: 8300000, guid: 8f73eb49cce0c804a941ce0ad3473db3, type: 3}
+  shelves:
+  - {fileID: 1459182204}
+  - {fileID: 1465569484}
+  letterCubes:
+  - {fileID: 23341073}
+  - {fileID: 1423911882}
+  - {fileID: 172345577}
+  - {fileID: 1252355063}
+  - {fileID: 1641195085}
+  - {fileID: 565275695}
+  - {fileID: 393790436}
+  - {fileID: 389994736}
+  disks:
+  - {fileID: 1959771433}
+  - {fileID: 1532306212}
+  - {fileID: 505067438}
+  shapes:
+  - {fileID: 1593420250}
+  - {fileID: 1926180542}
+  targetLetterDisplay: {fileID: 971421512}
+  targetShapeObject: {fileID: 1870869685}
+  cubeMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  cylinderMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  yellowSlot: {fileID: 527161612}
+  mCube: {fileID: 1423911882}
   moveDuration: 1.5
-  blueDiskTransform: {fileID: 0}
-  cylinderShapeTransform: {fileID: 0}
-  handAnimator: {fileID: 0}
+  blueDiskTransform: {fileID: 505067442}
+  cylinderShapeTransform: {fileID: 1926180546}
+  handAnimator: {fileID: 708633369}
   blinkInterval: 0.2
   slowBlinkInterval: 0.4
-  targetmanager: {fileID: 0}
+  targetmanager: {fileID: 146138379}
 --- !u!1 &1003478272
 GameObject:
   m_ObjectHideFlags: 0
@@ -35006,26 +35021,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d739cc696bee81e469037df8fa21fe8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SecondTutorial
-  audioSource: {fileID: 0}
-  introVoiceover: {fileID: 0}
-  findMSound: {fileID: 0}
-  shelves: []
-  letterCubes: []
-  disks: []
-  shapes: []
-  targetLetterDisplay: {fileID: 0}
-  targetShapeObject: {fileID: 0}
-  cubeMesh: {fileID: 0}
-  cylinderMesh: {fileID: 0}
-  yellowSlot: {fileID: 0}
-  mCube: {fileID: 0}
+  audioSource: {fileID: 1974196208}
+  introVoiceover: {fileID: 8300000, guid: 0790651656f534b46b5c84169ab3c05e, type: 3}
+  findMSound: {fileID: 8300000, guid: 8f73eb49cce0c804a941ce0ad3473db3, type: 3}
+  shelves:
+  - {fileID: 1459182204}
+  - {fileID: 1465569484}
+  letterCubes:
+  - {fileID: 23341073}
+  - {fileID: 1423911882}
+  - {fileID: 172345577}
+  - {fileID: 1252355063}
+  - {fileID: 1641195085}
+  - {fileID: 565275695}
+  - {fileID: 393790436}
+  - {fileID: 389994736}
+  disks:
+  - {fileID: 1959771433}
+  - {fileID: 1532306212}
+  - {fileID: 505067438}
+  shapes:
+  - {fileID: 1593420250}
+  - {fileID: 1926180542}
+  targetLetterDisplay: {fileID: 971421512}
+  targetShapeObject: {fileID: 1870869685}
+  cubeMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  cylinderMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  yellowSlot: {fileID: 527161612}
+  mCube: {fileID: 1423911882}
   moveDuration: 1.5
-  blueDiskTransform: {fileID: 0}
-  cylinderShapeTransform: {fileID: 0}
-  handAnimator: {fileID: 0}
+  blueDiskTransform: {fileID: 505067442}
+  cylinderShapeTransform: {fileID: 1926180546}
+  handAnimator: {fileID: 708633369}
   blinkInterval: 0.2
   slowBlinkInterval: 0.4
-  targetmanager: {fileID: 0}
+  targetmanager: {fileID: 146138379}
 --- !u!1 &1950096704
 GameObject:
   m_ObjectHideFlags: 0
