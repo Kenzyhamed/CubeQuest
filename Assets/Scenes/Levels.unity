@@ -11759,7 +11759,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SessionFlowManager
   ShowTopMostFoldoutHeaderGroup: 1
   enterButton: {fileID: 438330703}
-  tutorialOne: {fileID: 0}
+  tutorialOne: {fileID: 1575531331}
   positioner: {fileID: 161316464}
 --- !u!4 &522959485
 Transform:
@@ -14140,10 +14140,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   ShowTopMostFoldoutHeaderGroup: 1
   gameManager: {fileID: 807844646}
-  tutorialMode: {fileID: 0}
-  tut1: {fileID: 0}
-  tut2: {fileID: 0}
-  tut3: {fileID: 0}
+  tutorialMode: {fileID: 118020767}
+  tut1: {fileID: 1575531331}
+  tut2: {fileID: 1947473434}
+  tut3: {fileID: 1000075325}
 --- !u!114 &630183433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14158,7 +14158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
   GlobalObjectIdHash: 300442121
   InScenePlacedSourceGlobalObjectIdHash: 0
-  m_InScenePlacedDisabledByDefault: 0
+  m_InScenePlacedDisabledByDefault: 1
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
