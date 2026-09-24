@@ -19,7 +19,7 @@ public class LetterBox : NetworkBehaviour
         if (label != null)
             letter = label.text;
 
-        Transform child = transform.Find("GameObject");
+        Transform child = transform.Find("Visual");
         if (child != null)
         {
             _mf = child.GetComponent<MeshFilter>();

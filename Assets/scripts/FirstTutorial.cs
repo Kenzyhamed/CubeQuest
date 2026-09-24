@@ -65,79 +65,7 @@ public class FirstTutorial: MonoBehaviour
     {
         // t=6 - shelves flash slowly
         yield return new WaitForSeconds(6f);
-        _shelfBlink = StartCoroutine(BlinkLoop(shelves, slowBlinkInterval));
 
-        // t=10 - shelves stop, cubes jump up and down (condition A)
-        yield return new WaitForSeconds(4f);
-        StopBlink(_shelfBlink, shelves);
-        _cubeBounce = StartCoroutine(BounceAllLoop(letterCubes, 4f));
-
-        // t=14 - cubes stop, disks flash slowly
-        yield return new WaitForSeconds(4f);
-        if (_cubeBounce != null) StopCoroutine(_cubeBounce);
-        ResetPositions(letterCubes);
-        _diskBlink = StartCoroutine(BlinkLoop(disks, slowBlinkInterval));
-
-        // t=18 - disks stop, shapes flash slowly
-        yield return new WaitForSeconds(4f);
-        StopBlink(_diskBlink, disks);
-        _shapeBlink = StartCoroutine(BlinkLoop(shapes, slowBlinkInterval));
-
-        // t=23 - shapes stop, yellow slot flashes slowly
-        yield return new WaitForSeconds(5f);
-        StopBlink(_shapeBlink, shapes);
-        _slotBlink = StartCoroutine(BlinkLoop(new[] { yellowSlot }, slowBlinkInterval));
-
-        // t=30 - slot stops, target letter flashes
-        yield return new WaitForSeconds(7f);
-        StopBlink(_slotBlink, new[] { yellowSlot });
-        _letterBlink = StartCoroutine(BlinkLoop(new[] { targetLetterDisplay }, slowBlinkInterval));
-
-        // t=34 - letter stops, target mesh becomes cube + blue, flashes slowly
-        yield return new WaitForSeconds(4f);
-        StopBlink(_letterBlink, new[] { targetLetterDisplay });
-        SetTargetMesh(cubeMesh);
-        SetTargetColor(Color.blue);
-        _targetBlink = StartCoroutine(BlinkLoop(new[] { targetShapeObject }, slowBlinkInterval));
-
-        // t=44 - target mesh changes to cylinder
-        yield return new WaitForSeconds(10f);
-        StopBlink(_targetBlink, new[] { targetShapeObject });
-        SetTargetMesh(cylinderMesh);
-
-        // t=53 - m cube jumps up and down
-        yield return new WaitForSeconds(9f);
-        _mBounce = StartCoroutine(BounceLoop(mCube, 3f));
-
-        // t=65 (1:05) - m cube moves to blue disk and hits it
-        yield return new WaitForSeconds(12f);
-        yield return StartCoroutine(MoveCube(mCube, blueDiskTransform.position, moveDuration));
-
-        // t=75 (1:15) - m cube moves to cylinder
-        yield return new WaitForSeconds(10f - moveDuration);
-        yield return StartCoroutine(MoveCube(mCube, cylinderShapeTransform.position, moveDuration));
-
-        // t=89 (1:29) - m cube moves to slot
-        yield return new WaitForSeconds(14f - moveDuration);
-        yield return StartCoroutine(MoveCube(mCube, yellowSlot.transform.position, moveDuration));
-
-        // t=94 (1:34) - m cube returns to the yellow slot, color/shape reset,
-        // bounces again, FindM sound plays
-        yield return new WaitForSeconds(5f - moveDuration);
-        yield return StartCoroutine(MoveCube(mCube, yellowSlot.transform.position, moveDuration));
-        SetTargetColor(Color.white);
-        SetTargetMesh(cubeMesh);
-        _mBounce = StartCoroutine(BounceLoop(mCube, 3f));
-        if (audioSource != null && findMSound != null)
-            audioSource.PlayOneShot(findMSound);
-
-        // t=103 (1:43) - pointing hand: m cube -> disk -> cylinder -> slot, 1.5s each
-        yield return new WaitForSeconds(9f);
-        yield return StartCoroutine(HandDemo(isB2: false));
-
-        // t=114 (1:54) - same sequence, b2 hand style
-        yield return new WaitForSeconds(5f);
-        yield return StartCoroutine(HandDemo(isB2: true));
 
         // timeline complete
         targetmanager.SetTargets();

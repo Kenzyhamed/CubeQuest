@@ -18,6 +18,8 @@ public class SnapToPoint : NetworkBehaviour
 
     public Grabbable _grabbable;
     public bool isBeingControlled = false;
+    public bool correctColor = false;
+    public bool correctShape = false;
 
     bool _snappedToSlot = false;
     bool _checkPending = false;

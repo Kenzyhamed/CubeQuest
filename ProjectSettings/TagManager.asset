@@ -7,9 +7,9 @@ TagManager:
   - RedCylinder
   - BlueCylinder
   - TurnSphere
-  - TurnCube
   - TurnCylinder
   - GreenCylinder
+  - Cube
   layers:
   - Default
   - TransparentFX
